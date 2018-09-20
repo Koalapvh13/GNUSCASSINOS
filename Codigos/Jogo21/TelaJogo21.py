@@ -1,4 +1,4 @@
-from Codigos.Jogo21.baralho import Baralho
+from baralho import Baralho
 import random
 #import time
 from pygame  import mixer
