@@ -50,15 +50,3 @@ class Baralho:
     def topo_da_pilha(self):
         """Retira o topo da pilha e o retorna"""
         return self.embalharada.pop()
-
-'''
-bara = Baralho()
-bara.gerar_baralho()
-print(bara.mostrar_baralho())
-print(bara.pilha_embaralhar())
-print(bara.topo_da_pilha())
-print(bara.topo_da_pilha())
-print(bara.topo_da_pilha())
-print(bara.topo_da_pilha())
-print(bara.embalharada)
-'''
