@@ -7,13 +7,13 @@ from tkinter import *
 
 def estadoBtn(est):
     if est=="ativa":
-        print("ativou")
+        #print("ativou")
         btnDescer['image'] = imgbtnD
         btnParar['image'] = imgbtnP
         btnParar.place(x=550, y=500)
         btnDescer.place(x=615, y=500)
     else:
-        print("desativou")
+        #print("desativou")
         btnDescer['image']=''
         btnParar['image'] =''
         btnParar.place(x=0, y=0)
