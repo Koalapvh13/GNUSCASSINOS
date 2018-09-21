@@ -1,39 +1,98 @@
-from baralho import Baralho
-import random
-#import time
+from Codigos.Jogo21.baralho import Baralho
 from pygame  import mixer
 from tkinter import *
 
 #fodasticamente by:grupomaisfodadoBrasil <"G'NUS DIGITAIS"> não ouse tocar nesta linha!>>risco de morte
 #melhor team: "G'NUS DIGITAIS"> Matheus Dias, Bruno Felipe, Rodrigo Rocca e Igor Ramos(6998121-0671)..
 
+def estadoBtn(est):
+    if est=="ativa":
+        print("ativou")
+        btnDescer['image'] = imgbtnD
+        btnParar['image'] = imgbtnP
+        btnParar.place(x=550, y=500)
+        btnDescer.place(x=615, y=500)
+    else:
+        print("desativou")
+        btnDescer['image']=''
+        btnParar['image'] =''
+        btnParar.place(x=0, y=0)
+        btnDescer.place(x=0,y=0)
+
+def tiralogo():
+    logo['image'] = ''
+    logo.place(x=0, y=0)
+def zeraLimpa():
+    zerarPartida()
+    limpaMeio()
+def desvira():
+    global urlDesvira
+    img2['file'] = urlDesvira
+    imagem2.place(x=443, y=30)
+
 def limpaMeio():
-    logo['image']=''
     medalha['image']=''
     perdeuimg['image']=''
     empateimg['image']=''
-    logo.place(x=0,y=0)
+    lbMaquina['text'] = ''
+    lbJogador['text'] = ''
+    logo['image'] = imglogo
+    logo.place(x=340, y=250)
     medalha.place(x=0, y=0)
     perdeuimg.place(x=0, y=0)
     empateimg.place(x=0,y=0)
+    imagem.place(x=350, y=30)
+    imagem2.place(x=443, y=30)
+    imagem3.place(x=350, y=460)
+    imagem4.place(x=443, y=460)
+    img1['file']=r"image\cartasSlot.png"
+    img2['file']=r"image\cartasSlot.png"
+    img3['file']=r"image\cartasSlot.png"
+    img4['file']=r"image\cartasSlot.png"
+    imag1.place(x=1000, y=400)
+    imag2.place(x=1000, y=400)
+    imag3.place(x=1000, y=400)
+    imag4.place(x=1000, y=400)
+    imag5.place(x=1000, y=400)
+    imag6.place(x=1000, y=450)
+    imag7.place(x=1000, y=450)
+    imag8.place(x=1000, y=450)
+    imag9.place(x=1000, y=450)
+    imag10.place(x=1000, y=450)
     resultadoTela("não")
+
+def zerarPartida():
+    global qtdCartasMaquina
+    global qtdCartasJogador
+    global valorJogador
+    global valorMaquina
+    global cartasMaquina
+    global cartasJogador
+    valorMaquina = 0
+    valorJogador = 0
+    #olhar esta linha FIX-ME
+    bara.baralho=[]
+    #fim olhar esta linha FIX-ME
+    cartasJogador = []
+    cartasMaquina = []
+    print("Máquina cards:. " + str(cartasMaquina) + " Pts: " + str(valorMaquina))
+    print("Jogador cards:. " + str(cartasJogador) + " Pts: " + str(valorJogador))
+    qtdCartasJogador = 2
+    qtdCartasMaquina = 2
 
 
 def resultadoTela(s):
     if s == 'sim':
         lbResultadoMaquina.place(x=360, y=160)
         lbPontuacaoMaquina.place(x=472, y=168)
-
         lbResultadoJogador.place(x=360, y=410)
         lbPontuacaoJogador.place(x=472, y=418)
-
         lbResultadoMaquina['image']=pontoMaquina
         lbResultadoJogador['image']=pontoJogador
         lbPontuacaoMaquina['text'] = valorMaquina
         lbPontuacaoJogador['text'] = valorJogador
 
     else:
-
         lbPontuacaoMaquina['text'] = ""
         lbPontuacaoJogador['text'] = ""
         lbPontuacaoMaquina.place(x=1000,y=650)
@@ -43,47 +102,52 @@ def resultadoTela(s):
 
 
 def empatou():
+    estadoBtn("desativa")
     mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\uhoh.mp3')  # emb 3 é o som mais lento.
     mixer.music.load(r'sounds/uhoh.mp3')
     mixer.music.play()
-    limpaMeio()
+    tiralogo()
     resultadoTela("sim")
+    lbJogador['text']=''
+    lbMaquina['text']=''
     logo['image'] = ''
     empateimg['image']=imgEmpate
-    empateimg.place(x=350,y=220)
-
+    empateimg.place(x=330,y=220)
     logo.place(x=0, y=0)
 def ganhou():
+    estadoBtn("desativa")
     #musica ganhou
     mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\ganhou.mp3')  # emb 3 é o som mais lento.
     mixer.music.load(r'sounds/ganhou.mp3')
     mixer.music.play()
-    limpaMeio()
+    tiralogo()
     resultadoTela("sim")
+    lbJogador['text'] = ''
+    lbMaquina['text'] = ''
     logo['image'] = ''
     medalha['image']=imgMedalha
-    medalha.place(x=350, y=220)
+    medalha.place(x=330, y=220)
     logo.place(x=0,y=0)
 
 def perdeu():
     #musica perdeu
+    estadoBtn("desativa")
     mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\uhoh.mp3')  # emb 3 é o som mais lento.
     mixer.music.load(r'sounds/uhoh.mp3')
     mixer.music.play()
-    limpaMeio()
+    tiralogo()
     resultadoTela("sim")
+    lbJogador['text'] = ''
+    lbMaquina['text'] = ''
     logo['image'] = ''
     perdeuimg['image'] = imgPerdeu
-    perdeuimg.place(x=350, y=220)
+    perdeuimg.place(x=330, y=220)
     logo.place(x=0, y=0)
 
 def play():
-    #time.sleep(1)
-    limpaMeio()
+    zeraLimpa()
     jogar()
+    estadoBtn("ativa")
     inicio['image']=''
     logo['image']=imglogo
     medalha['image']=''
@@ -91,129 +155,156 @@ def play():
     perdeuimg['image']=''
     perdeuimg.place(x=0,y=0)
     inicio.place(x=0,y=0)
-    limpar.place(x=680, y=500)
     logo.place(x=340, y=250)
-    AtualizaPlay()
-def AtualizaPlay():
-    reinicio.place(x=748,y=500)
+    #AtualizaPlay()
+    reinicio.place(x=748, y=500)
 
-
-def Embaralhar():
+def EmbaralharSom():
     mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\emb3.wav')#emb 3 é o som mais lento.
     mixer.music.load(r'sounds/emb3.wav')
     mixer.music.play()
+def adicionaCartaSlot(jogador,url):
+    global qtdCartasJogador
+    global qtdCartasMaquina
+    global urlDesvira
+
+    if jogador=="jogador":
+        #1- passo, mover carta slot 2 para a esquerda em (x).
+        imagem3.place(x=320,y=460)
+        imagem4.place(x=350, y=460)
+        qtdCartasJogador=qtdCartasJogador+1
+        if qtdCartasJogador==3:
+            imag1Carta['file']=url
+            imag1.place(x=380,y=460)
+        elif qtdCartasJogador==4:
+            imag2Carta['file'] = url
+            imag2.place(x=410, y=460)
+        elif qtdCartasJogador==5:
+            imag3Carta['file'] = url
+            imag3.place(x=440, y=460)
+        elif qtdCartasJogador==6:
+            imag4Carta['file'] = url
+            imag4.place(x=470, y=460)
+        elif qtdCartasJogador==7:
+            imag5Carta['file']=url
+            imag5.place(x=500,y=460)
+    else:
+        #é igual a maquina:
+        #1- passo desvirar carta slot 2 maquina e mover pra esquerda (x)
+        imagem.place(x=320, y=30)
+        img2['file'] = urlDesvira
+        imagem2.place(x=350, y=30)
+
+        qtdCartasMaquina = qtdCartasMaquina + 1
+        if qtdCartasMaquina == 3:
+            imag6Carta['file'] = url
+            imag6.place(x=380, y=30)
+
+        elif qtdCartasMaquina == 4:
+            imag7Carta['file'] = url
+            imag7.place(x=410, y=30)
+
+        elif qtdCartasMaquina == 5:
+            imag8Carta['file'] = url
+            imag8.place(x=440, y=30)
+
+        elif qtdCartasMaquina == 6:
+            imag9Carta['file'] = url
+            imag9.place(x=470, y=30)
+
+        elif qtdCartasMaquina == 7:
+            imag10Carta['file'] = url
+            imag10.place(x=500, y=30)
+
+
 
 def puxarcarta():
     mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\DEAL1.wav')# deal1 é o mais rapido e agradavel.
     mixer.music.load(r'sounds/DEAL1.wav')
     mixer.music.play()
-    global estado
+    global cartasJogador
     global valorJogador
     global valorMaquina
 
     cartasJogador.append(bara.topo_da_pilha())
-    #url1 = criaString(descobreCarta(cartasJogador)) add imagem
+    url1 = criaString(descobreCarta(cartasJogador))
+    adicionaCartaSlot("jogador",url1)
     jogador = Trata(cartasJogador)
     valorJogador = placarJogador(jogador)
     lbJogador['text']=valorJogador
-
+    print(len(bara.embalharada))#print testeeeeeeeeeeeeeeeeeeeeeeeeeee
     if valorJogador>21:
         perdeu()
         print("1-perdeu")
-        reconfigura()
-        lbJogador['text']='00'
-        lbMaquina['text']='00'
-        estado=1
+        desvira()
+        zerarPartida()
+        lbJogador['text']=''
+        lbMaquina['text']=''
+
     elif valorJogador==21 and valorMaquina==21:
         empatou()
+        desvira()
         print("1-Empate com a maquina!")
-        #desvira cartas viradas e espera 2 segundos
-        reconfigura()
-        #zerarPartida()
+        zerarPartida()
     elif valorJogador==21:
         ganhou()
+        desvira()
         print("1-ganhou de cara21!")
-        # desvira cartas viradas e espera 2 segundos
-        reconfigura()
-        #zerarPartida()
+        zerarPartida()
     elif(valorMaquina==21):
         perdeu()
+        desvira()
         print("1-perdeu, maquina ganhou de cara21!")
-        #lbalperdeu se mostra visivel
-        # desvira cartas viradas e espera 2 segundos
-        reconfigura()
-        #zerarPartida()
+        zerarPartida()
+
     elif valorMaquina>21:
         ganhou()
+        desvira()
         print("1-ganhou! maquina estourou21")
-        # desvira cartas viradas e espera 2 segundos
-        reconfigura()
-        #zerarPartida()
-
-def zerarPartida():
-    mixer.init()
-    #mixer.music.load(r'C:\Users\Igor\Pictures\sounds\stop.wav')  # deal1 é o mais rapido e agradavel.
-    mixer.music.load(r'sounds/stop.wav')
-    mixer.music.play()
-    limpaMeio()
-    reconfigura()
-    logo['image'] = imglogo
-    logo.place(x=340, y=250)
-
+        zerarPartida()
 
 def pararcarta():
-
+    global cartasJogador
+    global cartasMaquina
     global valorJogador
     global valorMaquina
-
-
-    if valorMaquina>valorJogador:
+    if valorJogador==valorMaquina:
+        empatou()
+        desvira()
+        print("c-3 #ESPECIAL#-maquina empatou pois os valores eram iguais NO INICIO")
+        zerarPartida()
+    elif valorMaquina>valorJogador:
         perdeu()
+        desvira()
         print("2-perdeu, maquina tinha valor maior!")
-        # desvira cartas viradas e espera 2 segundos
-        reconfigura()
-        #zerarPartida()
+        zerarPartida()
     else:
         # maquina joga!@@@
         while (valorMaquina<valorJogador):
             cartasMaquina.append(bara.topo_da_pilha())
+            url2 = criaString(descobreCarta(cartasMaquina))
+            adicionaCartaSlot("maquina", url2)
             maquina = Trata(cartasMaquina)
             valorMaquina = placarMaquina(maquina)
             lbMaquina['text']=valorMaquina
+            print(len(bara.embalharada))  # print testeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
 
         if valorMaquina==valorJogador:
             empatou()
             print("2-empate! maquina decidiu empatar com vc!")
-            # desvira cartas viradas e espera 2 segundos
-            reconfigura()
-            #zerarPartida()
+            zerarPartida()
         elif valorMaquina>21:
             ganhou()
             print("2-ganhou! maquina estourou valor!")
-            # desvira cartas viradas e espera 2 segundos
-            reconfigura()
-            #zerarPartida()
+            zerarPartida()
         elif valorMaquina==21:
             perdeu()
             print("2-perdeu, maquina fez exatamente21!")
-            # desvira cartas viradas e espera 2 segundos
-            reconfigura()
-            #zerarPartida()
+            zerarPartida()
         else:
             perdeu()
             print("2-perdeu! maquina venceu abaixo de 21!")
-            # desvira cartas viradas e espera 2 segundos
-            reconfigura()
-            #zerarPartida()
-
-
-def parar():
-    musica_atual = mixer.music.stop()
-
-def pausar():
-    musica_atual = mixer.music.pause()
+            zerarPartida()
 
 def sair():
     janela.destroy()
@@ -239,7 +330,7 @@ def placarJogador(v):
         t=t+str(v[i])+", "
     print(tex+t+" PTs: "+str(soma))
     return soma
-
+'''
 def Trata(cartas):
     vet=[]
     #vetP=[]
@@ -253,15 +344,14 @@ def Trata(cartas):
             carM = int(cartas[i][0])
         vet.append(carM)
     return vet
-
-def maquinaPensa(): #inteligencia não artificial :by gnu-digitail
-    vet=[13,14,15,16,17,18,19]
-    pensou=random.choice(vet)
-    return pensou
-
-
-def destroi(img):
-    img.destroy()
+'''
+def Trata(cartas): #teste FIX-ME, por enquanto favor não remover código de cima entre comentario!!!@@@
+    vet=[]
+    for i in range(len(cartas)):
+        carM=0
+        carM = int(cartas[i][0])
+        vet.append(carM)
+    return vet
 
 def criaString(entrada):
     s=r"image\Baralho\ "+str(entrada)+".png"
@@ -272,28 +362,10 @@ def descobreCarta(mat):
     valor=''
     valor=ultima[1]+ultima[2][0]
     return valor
-def reconfigura():
-    #limpaMeio()
-    global valorJogador
-    global valorMaquina
-    global cartasMaquina
-    global cartasJogador
-    img1['file']=r"image\cartasSlot.png"
-    img2['file']=r"image\cartasSlot.png"
-    img3['file']=r"image\cartasSlot.png"
-    img4['file']=r"image\cartasSlot.png"
-    lbMaquina['text']='00'
-    lbJogador['text']='00'
-    valorMaquina=0
-    valorJogador=0
-    cartasJogador=[]
-    cartasMaquina=[]
-    print("Máquina cards:. "+str(cartasMaquina)+" Pts: "+str(valorMaquina))
-    print("Jogador cards:. "+str(cartasJogador)+" Pts: "+str(valorJogador))
+
 
 def jogar():
-
-    Embaralhar()
+    EmbaralharSom()
     urlFechada=r"image\cartafechada.png"
     global cartasMaquina
     cartasMaquina= []
@@ -303,6 +375,7 @@ def jogar():
     valorJogador= 0
     global valorMaquina
     valorMaquina= 0
+    global urlDesvira
 
     bara.gerar_baralho()
     bara.pilha_embaralhar()
@@ -314,28 +387,27 @@ def jogar():
     url3 = criaString(descobreCarta(cartasJogador))
 
     cartasMaquina.append(bara.topo_da_pilha())
-    #este n possui URL pois esta carta esta virada para baixo.
+    #este não possui URL pois esta carta esta virada para baixo.
+    urlDesvira=criaString(descobreCarta(cartasMaquina))
+    # a url foi criada para desvirar esta carta no futuro. e fica salva numa global.
 
     cartasJogador.append(bara.topo_da_pilha())
     url4 = criaString(descobreCarta(cartasJogador))
-
     img1['file'] = url1
     img2['file'] = urlFechada
     img3['file'] = url3
     img4['file'] = url4
 
-    maquina = Trata(cartasMaquina)
-    print(maquina)
+    print(cartasMaquina)
+    print(cartasJogador)
 
+    maquina = Trata(cartasMaquina)
     jogador = Trata(cartasJogador)
-    print(jogador)
 
     valorMaquina = placarMaquina(maquina)
     valorJogador = placarJogador(jogador)
     lbMaquina['text']=maquina[0]
     lbJogador['text']=valorJogador
-
-
 
 
 '''codigo principal'''
@@ -347,60 +419,11 @@ cartasMaquina=[]
 cartasJogador=[]
 valorJogador=0
 valorMaquina=0
-estado=0
+qtdCartasJogador=2
+qtdCartasMaquina=2
+urlDesvira=''
 
 '''fim codigo principal aplicacao'''
-
-"""FIX-ME""" #da maquina
-"""algumas imagens reservas em slots invisiveis que ficarão do lado direito do user: """
-
-imag1 = Label(janela)
-#carta1 = PhotoImage(file=)
-#imag1['image'] = carta1
-imag1['bg'] = '#006400'
-
-
-imag2 = Label(janela)
-#carta2 = PhotoImage(file=r"image\cartafechada.png")
-#imag2['image'] = carta2
-imag2['bg'] = '#006400'
-
-
-imag3 = Label(janela)
-#carta3 = PhotoImage(file=r"image\Baralho\Ao.png")
-#imag3['image'] = carta3
-imag3['bg'] = '#006400'
-
-imag4 = Label(janela)
-#carta4 = PhotoImage(file=r"image\Baralho\2o.png")
-#imag4['image'] = carta4
-imag4['bg'] = '#006400'
-
-
-imag5 = Label(janela)
-#carta5 = PhotoImage(file=r"image\Baralho\Ao.png")
-#imag5['image'] = carta5
-imag5['bg'] = '#006400'
-
-imag6 = Label(janela)
-#carta6 = PhotoImage(file=r"image\Baralho\2o.png")
-#imag6['image'] = carta6
-imag6['bg'] = '#006400'
-
-imag7 = Label(janela)
-#carta7 = PhotoImage(file=r"image\Baralho\Ao.png")
-#imag7['image'] = carta7
-imag7['bg'] = '#006400'
-
-imag8 = Label(janela)
-#carta8 = PhotoImage(file=r"image\Baralho\Ao.png")
-#imag8['image'] = carta8
-imag8['bg'] = '#006400'
-
-#[1,2,3,4,***5,6,7***]: exemplo.
-#3 é mais que o sufuciente!
-
-#FIX-ME FIM"""
 
 #botao comecar partida!
 inicio=Button(janela)
@@ -419,14 +442,18 @@ reinicio['relief']=FLAT
 reinicio['command']=play
 reinicio['bg']='#006400'
 #fim reincio
+
 #inicio limpar
+'''
 limpar=Button(janela)
 limparimg=PhotoImage(file=r"image\limpar.png")
 limpar['image']=limparimg
 limpar['relief']=FLAT
-limpar['command']=zerarPartida
+limpar['command']=zeraLimpa
 limpar['bg']='#006400'
+'''
 #fim limpar
+
 #LOGOgnus
 logo=Label(janela)
 imglogo=PhotoImage(file=r"image\meio.png")
@@ -496,6 +523,69 @@ imagem4['bg']='#006400'
 imagem4.place(x=443,y=460)
 #fim slot4 jogador
 
+#teste
+
+"""FIX-ME"""
+"""algumas imagens reservas em slots invisiveis que ficarão do lado direito do user: """
+
+imag1 = Label(janela)
+imag1Carta = PhotoImage(file=r"image\Baralho\Ao.png")
+imag1['image'] = imag1Carta
+imag1['bg'] = '#006400'
+
+
+imag2 = Label(janela)
+imag2Carta = PhotoImage(file=r"image\Baralho\Ao.png")
+imag2['image'] = imag2Carta
+imag2['bg'] = '#006400'
+
+
+imag3 = Label(janela)
+imag3Carta = PhotoImage(file=r"image\Baralho\Ao.png")
+imag3['image'] = imag3Carta
+imag3['bg'] = '#006400'
+
+imag4 = Label(janela)
+imag4Carta = PhotoImage(file=r"image\Baralho\Ao.png")
+imag4['image'] = imag4Carta
+imag4['bg'] = '#006400'
+
+
+imag5 = Label(janela)
+imag5Carta = PhotoImage(file=r"image\Baralho\Ao.png")
+imag5['image'] = imag5Carta
+imag5['bg'] = '#006400'
+
+#daqui pra baixo fica slots para mais cartas da maquina!!@
+
+imag6 = Label(janela)
+imag6Carta = PhotoImage(file=r"image\Baralho\Ap.png")
+imag6['image'] = imag6Carta
+imag6['bg'] = '#006400'
+
+imag7 = Label(janela)
+imag7Carta = PhotoImage(file=r"image\Baralho\Ap.png")
+imag7['image'] = imag7Carta
+imag7['bg'] = '#006400'
+
+imag8 = Label(janela)
+imag8Carta = PhotoImage(file=r"image\Baralho\Ap.png")
+imag8['image'] = imag8Carta
+imag8['bg'] = '#006400'
+
+imag9 = Label(janela)
+imag9Carta = PhotoImage(file=r"image\Baralho\Ap.png")
+imag9['image'] = imag9Carta
+imag9['bg'] = '#006400'
+
+imag10 = Label(janela)
+imag10Carta = PhotoImage(file=r"image\Baralho\Ap.png")
+imag10['image'] = imag10Carta
+imag10['bg'] = '#006400'
+
+#FIX-ME FIM"""
+#fim teste
+
 #botao de parar
 btnParar=Button(janela)
 btnParar['bg']='#006400'
@@ -503,7 +593,7 @@ btnParar['relief']=FLAT
 btnParar['command']=pararcarta
 imgbtnP=PhotoImage(file=r"image\btnP.png")
 btnParar['image']=imgbtnP
-btnParar.place(x=550,y=500)
+#btnParar.place(x=550,y=500)
 #fim botao parar
 
 #botao descer mais carta
@@ -513,7 +603,7 @@ btnDescer['command']=puxarcarta
 btnDescer['relief']=FLAT
 imgbtnD=PhotoImage(file=r"image\btnD.png")
 btnDescer['image']=imgbtnD
-btnDescer.place(x=615,y=500)
+#btnDescer.place(x=615,y=500)
 #fim botao descer mais carta
 
 #inicio  botao sair sistema
