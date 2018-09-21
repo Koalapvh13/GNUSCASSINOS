@@ -1,4 +1,4 @@
-from Codigos.Jogo21.baralho import Baralho
+from baralho import Baralho
 from pygame  import mixer
 from tkinter import *
 
@@ -698,7 +698,9 @@ lbPontuacaoJogador.place(x=1000, y=415)
 #outras configurações da janela..
 janela.iconbitmap(r"image\logoSistema.ico")
 janela.resizable(0,0)
-janela.geometry("900x600+200+50")  # largura x altura + esquerda + topo
+x = (janela.winfo_screenwidth() // 2) - (900// 2)
+y = (janela.winfo_screenheight() // 2) - (600// 2)
+janela.geometry("900x600+{}+{}".format(x, y))  # largura x altura + esquerda + topo
 janela['bg'] = "#006400"
 #janela.overrideredirect(True)#retira bordas
 janela.mainloop()
