@@ -22,6 +22,7 @@ def estadoBtn(est):
 def tiralogo():
     logo['image'] = ''
     logo.place(x=0, y=0)
+
 def zeraLimpa():
     zerarPartida()
     limpaMeio()

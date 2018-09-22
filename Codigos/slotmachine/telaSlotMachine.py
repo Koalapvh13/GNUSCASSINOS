@@ -9,6 +9,7 @@ sm = SlotMachine()
 
 def s1():
     threading.Timer(0.2, sorteia).start()
+
     nome = str(sm.spin())
     img1['file'] = "imagens/slots/"+nome+".png"
     nome2 = str(sm.spin())

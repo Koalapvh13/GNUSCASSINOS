@@ -27,8 +27,7 @@ class SlotMachine:
             vetor_ordenado[d], vetor_ordenado[e] = vetor_ordenado[e], vetor_ordenado[d]
         self.embalharada = vetor_ordenado
         return vetor_ordenado
-
-
-
+'''
 s = SlotMachine()
 print(s.spin())
+'''
